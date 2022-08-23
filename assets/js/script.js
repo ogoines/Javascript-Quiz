@@ -1,99 +1,203 @@
-var timerEl = document.getElementById('countdown');
-var mainEl = document.getElementById('main');
-var choicesE1 = document.getElementsByClassName('answers');
 
-
-
-const quizQuestions = [
-  {question: "Commonly used data types Include:",
-   answers:["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-   correct: ""
-  }
-  
-  {question= "The condition in an if/else statement is enclosed with ______.",
-   answers: ["1. quotes", "2. curly brackets", "3. parenthesis", "4. square brackets"],
-   correct: ""
-  }
-
-  {question = "Arrays in Javascript can be used to store:",
-   answers: ["1. numbers and strings", "2. other arrays", "3. booleans", "4. all of the above"],
-   correct: ""
-  }
-  {question = "String values must be enclosed with ______ when being assigned to variables",
-   answers: ["1. commas", "2. curly brackets", "3. quotes", "4. parenthesis"],
-   correct: ""
-  
+var timerEl = document.getElementById("quiz-timer");
+var timeLeft = document.getElementById("time-Left");
+var timesUp = document.getElementById("quiz-over");
+var highScore= document.getElementById("view-high-score");
+var quizInfo = document.getElementById("quiz-directions");
+const quizLength = 5;
+const QUIZ_TIME = 75;
+//quiz object containing questions, answers and correct answer
+const quiz = [
+ {
+   question: "Commonly used data types Do Not Include:",
+   choice1: "string",
+   choice2: "booleans", 
+   choice3: "alerts",
+   choice4: "numbers",
+   answer: 3
+ },
+ {
+   question: "Arrays in Javascript can be used to store:",
+   choice1: "numbers and strings",
+   choice2: "other arrays", 
+   choice3: "booleans", 
+   choice4: "all of the above",
+   answer: 4
+ }, 
+ {
+   question: "A very useful tool during debugging for printer content to the debugger is:",
+   choice1: "Javascript",
+   choice2: "console log",
+   choice3: "for loops",    
+   choice4: "terminal bash",
+  answer: 4
+ },
+ {
+   question: "String values must be enclosed with ______ when being assigned to variables.",    
+   choice1: "commas", 
+   choice2: "curly brackets", 
+   choice3: "quotes", 
+   choice4: "parenthesis",
+   answer: 3
+ },
+ {
+   question: "The condition in an if/else statement is enclosed with ______.",
+   choice1: "parenthesis",
+   choice2: "curly brackets", 
+   choices3: "quotes", 
+   choice4: "square brackets",
+   answer: 1
  }
- {question = 'A very useful/tool during debugging for printer content to the debugger is:',
-  answers: ["1. Javascript", "2. terminal bash", "3. for loops", "4. console log"],
-  correct: ""
-
- }
-]
+];
 
 
 
 
-  const quiz = ["Commonly used data types Include:",
-              "The condition in an if/else statement is enclosed with ______.",
-              "Arrays in Javascript can be used to store:",
-              "String values must be enclosed with ______ when being assigned to variables",
-              "A very useful/tool during debugging for printer content to the debugger is:"];
-
-const answers1 = ["strings", "booleans", "alerts", "numbers"];
-const answers2 = ["quotes", "curly brackets", "parenthesis", "square brackets"];
-const answers3 = ["numbers and strings", "other arrays", "booleans", "all of the above"];
-const answers4 = ["commas", "curly brackets", "quotes", "parenthesis"];
-const answers5 = ["Javascript", "terminal bash", "for loops", "console log"];
 
 
+//links to elements in results section
+//var  resultsContainer= document.getElementById("results-section");
+var  userScore = document.getElementById("user-score");
+var  initialInput = document.getElementById("initial-input");
+var  userInitials = document.getElementById("btn-user-initials");
+var  highscoreContainer = document.getElementById("highscore-container");
+var  highscoreList = document.getElementById("highscore-list");
+var  backBtn = document.getElementById("btn-button");
+var  clearScoresBtn = document.getElementById("btn-clear-scores");
+var quizIndex = 0;
+var numCorrect = 0;
 
 
-// Timer that counts down from 5
+//links to elements in question container
+var questionContainer = document.getElementById("question-container");
+const question= document.getElementById("question");
+//html collection converted to an array with datasets with custom properties
+const choices = Array.from(document.getElementsByClassName("choice-text"));
+let questionCounter = 0;
+let currentQuestion = {};
+//var checkAnswer = document.getElementById("check-answer");
+let questionsAvailable = [...quiz];
+console.log(questionsAvailable);
+let receivingAnswers = true;
+
+
+startQuiz = () => {
+  quizInfo.style.display = "none";
+  countdown();
+  getQuestions();
+  //displayResults();
+  
+}
+document.getElementById("start-btn").onclick = function() {startQuiz()};
+
+
+timeLeft =50;
+getQuestions = () => {
+  if(questionsAvailable.length === 0 || questionCounter > quizLength || timeLeft < 0)
+    //end of page
+    return  ("/end.html");
+  questionCounter++;
+  console.log(questionCounter);
+  questionContainer.style.display = "inline-block";
+  currentQuestion = questionsAvailable[quizIndex];
+  question.innerText = currentQuestion.question;
+  choices.forEach( choice  => {
+    const number = choice.dataset['number'];
+    choice.innerText =currentQuestion['choice' + number];
+  });
+  questionsAvailable.splice(quizIndex, 1);
+  receivingAnswers = true; 
+//};
+
+choices.forEach(choice => {
+  choice.addEventListener("click", e => {
+    const penalty = 10;
+    if (!receivingAnswers) return;    
+    
+    receivingAnswers = false;
+    const selectedChoice = e.target;
+    const selectedAnswer = selectedChoice.dataset ['number'];
+    let checkAnswer = document.getElementById("check-answer");
+    //let lineBreak = document.getElementById("line-break");
+    //lineBreak.style.display = "block";
+    checkAnswer.style.display = "inline-block";
+  
+   if (selectedAnswer == currentQuestion.answer){
+     numCorrect++;
+      checkAnswer.textContent = 'Correct!';
+      userScore.textContent = numCorrect;
+    }else{ 
+      checkAnswer.textContent = 'Incorrect';
+      timeLeft = timeLeft - penalty;
+    }
+    if (timeLeft > 0){
+      getQuestions();
+    }
+    
+});
+});
+
+};
+
+
+//displayResults = () => {
+//  questionContainer.style.display = "inline-block";
+//  let resultsContainer= document.getElementById("results-section"); 
+//  resultsContainer.style.display = "inline-block";
+ 
+//}
+
+
+// Timer that counts 
 function countdown() {
-  var timeLeft = 5;
-
-  // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+ // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
     if (timeLeft > 1) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
       timerEl.textContent = timeLeft + ' seconds remaining';
+
       // Decrement `timeLeft` by 1
       timeLeft--;
     } else if (timeLeft === 1) {
-      // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+     // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
       timerEl.textContent = timeLeft + ' second remaining';
-      timeLeft--;
+     timeLeft--;
     } else {
-      // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-      timerEl.textContent = '';
-      // Use `clearInterval()` to stop the timer
+     // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+      timerEl.textContent = "Time's up!!!";
+     // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function
-      displayMessage();
     }
+  }, 1000);
+ }
+
+
+
+
+var secondsLeft = 10;
+
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+  if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // displays final results
+      finalResults();
+    }
+
   }, 1000);
 }
 
-// Displays the message one word at a time
-function displayMessage() {
-  var count = 0;
-
-  // Uses the `setInterval()` method to call a function to be executed every 1000 milliseconds
-  var msgInterval = setInterval(function () {
-   
-    // If there are no more words left in the message
-    if (words[count] === undefined) {
-      // Use `clearInterval()` to stop the timer
-      clearInterval(msgInterval);
-    } else { 
-            mainEl.textContent=quiz[count];
-       count++;
-    }
-  }, 5000);
-
-
+// 
+finalResults = () => {
+  questionContainer.style.display = "none";
+  let resultsContainer= document.getElementById("results-section"); 
+  resultsContainer.style.display = "inline-block";
+ 
 }
-countdown();
 
+
+setTime();
