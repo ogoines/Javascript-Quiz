@@ -12,5 +12,34 @@
 </head>
 <body>
     <h1>Highscore</h1>
+    <table class="table">
+        <thead>
+          <tr>
+      
+            <th scope="col">User</th>
+            <th scope="col">Score</th>
+    
+          </tr>
+        </thead>
+        <tbody id="tableData">
+         
+         
+        </tbody>
+      </table>  
+      <a href="./index.html">Retake</a>
+      <script>
+ 
+ var scoreboard = JSON.parse(localStorage.getItem("codequiz")) || []
+ let html=""
+ scoreboard.forEach(element => {
+    html +=` <tr>
+        
+            <td colspan="2">${element.user}</td>
+            <td>${element.score}</td>
+          </tr>`
+ });
+ document.getElementById("tableData").innerHTML = html || "NoScoresAvailable"
+
+      </script>
 </body>
 </html>

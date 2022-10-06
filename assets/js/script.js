@@ -1,4 +1,3 @@
-
 var timerEl = document.getElementById("quiz-timer");
 var timeLeft = document.getElementById("time-Left");
 var timesUp = document.getElementById("quiz-over");
@@ -6,6 +5,7 @@ var highScore = document.getElementById("view-high-score");
 var quizInfo = document.getElementById("quiz-directions");
 const quizLength = 5;
 var timerInterval;
+
 //quiz object containing questions, answers and correct answer
 const quiz = [
   {
@@ -92,7 +92,7 @@ startQuiz = () => {
 document.getElementById("start-btn").addEventListener("click",startQuiz)
 var timeLeft = 50;
 
-//g ets Quiz
+//gets Quiz
 getQuestions = () => {
 
   if (questionCounter < quizLength-1) {
@@ -124,8 +124,6 @@ choices.forEach(choice => {
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset['number'];
     let checkAnswer = document.getElementById("check-answer");
-    //let lineBreak = document.getElementById("line-break");
-    //lineBreak.style.display = "block";
     checkAnswer.style.display = "inline-block";
 
     if (selectedAnswer == currentQuestion.answer) {
@@ -177,18 +175,21 @@ function countdown() {
   }, 1000);
 }
 
-userInitials.addEventListener("click", function () {
+//adds users initials
+userInitials.addEventListener("click", function (event) {
+  event.preventDefault()
   var userScore = {
     user: initialInput.value,
     score: numCorrect + timeLeft
   }
-  console.log(userScore,"On Clicl")
+  
   var scoreboard = JSON.parse(localStorage.getItem("codequiz")) || []
   scoreboard.push(userScore)
   localStorage.setItem("codequiz", JSON.stringify(scoreboard))
  
  resultsContainer.style.display = "none";
  document.getElementById("html-container").style.display = "block"
+ console.log(scoreboard)
 })
 
 
