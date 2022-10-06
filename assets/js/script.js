@@ -61,6 +61,7 @@ var highscoreContainer = document.getElementById("highscore-container");
 var highscoreList = document.getElementById("highscore-list");
 var backBtn = document.getElementById("btn-button");
 var clearScoresBtn = document.getElementById("btn-clear-scores");
+let resultsContainer = document.getElementById("results-section");
 var quizIndex = 0;
 var numCorrect = 0;
 
@@ -70,7 +71,7 @@ var questionContainer = document.getElementById("question-container");
 const question = document.getElementById("question");
 //html collection converted to an array with datasets with custom properties
 const choices = Array.from(document.getElementsByClassName("choice-text"));
-let questionCounter = 0;
+let questionCounter = -1;
 let currentQuestion = {};
 //var checkAnswer = document.getElementById("check-answer");
 let questionsAvailable = [...quiz];
@@ -80,21 +81,23 @@ let receivingAnswers = true;
 
 startQuiz = () => {
   quizInfo.style.display = "none";
+  questionContainer.style.display = "block"
+  questionCounter = -1;
+  console.log("STart button onlcick")
   countdown();
   getQuestions();
-  //displayResults();
+ 
 }
 
-document.getElementById("start-btn").onclick =
-  function () { startQuiz() };
-timeLeft = 50;
+document.getElementById("start-btn").addEventListener("click",startQuiz)
+var timeLeft = 50;
 
 //g ets Quiz
 getQuestions = () => {
-  if (questionCounter === quizLength) {
-    //end of page
-    displayResults()
-  } else {
+
+  if (questionCounter < quizLength-1) {
+   
+
     questionCounter++;
     console.log(questionCounter);
     questionContainer.style.display = "inline-block";
@@ -106,6 +109,9 @@ getQuestions = () => {
     });
     questionsAvailable.splice(quizIndex, 1);
     receivingAnswers = true;
+  }else{
+    console.log("Question Counter",questionCounter)
+    displayResults()
   }
 }
 
@@ -130,22 +136,20 @@ choices.forEach(choice => {
       checkAnswer.textContent = 'Incorrect';
       timeLeft = timeLeft - penalty;
     }
-    if (timeLeft > 0) {
       getQuestions();
-    }
-    else { }
-
+   
   });
 
 });
 
 
 
-displayResults = () => {
+const displayResults = () => {
   questionContainer.style.display = "none";
-  let resultsContainer = document.getElementById("results-section");
   resultsContainer.style.display = "inline-block";
   clearInterval(timeInterval)
+  userScore.textContent = numCorrect + timeLeft;
+  console.log("Display result")
 }
 
 
@@ -172,6 +176,20 @@ function countdown() {
     }
   }, 1000);
 }
+
+userInitials.addEventListener("click", function () {
+  var userScore = {
+    user: initialInput.value,
+    score: numCorrect + timeLeft
+  }
+  console.log(userScore,"On Clicl")
+  var scoreboard = JSON.parse(localStorage.getItem("codequiz")) || []
+  scoreboard.push(userScore)
+  localStorage.setItem("codequiz", JSON.stringify(scoreboard))
+ 
+ resultsContainer.style.display = "none";
+ document.getElementById("html-container").style.display = "block"
+})
 
 
 
