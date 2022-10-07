@@ -1,7 +1,5 @@
 var timerEl = document.getElementById("quiz-timer");
 var timeLeft = document.getElementById("time-Left");
-var timesUp = document.getElementById("quiz-over");
-var highScore = document.getElementById("view-high-score");
 var quizInfo = document.getElementById("quiz-directions");
 const quizLength = 5;
 var timerInterval;
@@ -51,7 +49,6 @@ const quiz = [
 ];
 
 
-
 //links to elements in results section
 //var  resultsContainer= document.getElementById("results-section");
 var userScore = document.getElementById("user-score");
@@ -86,18 +83,16 @@ startQuiz = () => {
   console.log("STart button onlcick")
   countdown();
   getQuestions();
- 
+
 }
 
-document.getElementById("start-btn").addEventListener("click",startQuiz)
+document.getElementById("start-btn").addEventListener("click", startQuiz)
 var timeLeft = 50;
 
 //gets Quiz
 getQuestions = () => {
 
-  if (questionCounter < quizLength-1) {
-   
-
+  if (questionCounter < quizLength - 1) {
     questionCounter++;
     console.log(questionCounter);
     questionContainer.style.display = "inline-block";
@@ -109,8 +104,8 @@ getQuestions = () => {
     });
     questionsAvailable.splice(quizIndex, 1);
     receivingAnswers = true;
-  }else{
-    console.log("Question Counter",questionCounter)
+  } else {
+    console.log("Question Counter", questionCounter);
     displayResults()
   }
 }
@@ -134,22 +129,20 @@ choices.forEach(choice => {
       checkAnswer.textContent = 'Incorrect';
       timeLeft = timeLeft - penalty;
     }
-      getQuestions();
-   
+    getQuestions();
+
   });
 
 });
 
-
-
 const displayResults = () => {
   questionContainer.style.display = "none";
   resultsContainer.style.display = "inline-block";
-  clearInterval(timeInterval)
-  userScore.textContent = numCorrect + timeLeft;
-  console.log("Display result")
+  clearInterval(timeInterval);
+  userScore.textContent = numCorrect;
+  console.log("Display numCorrect")
+  console.log(numCorrect);
 }
-
 
 // Timer that counts 
 function countdown() {
@@ -159,7 +152,6 @@ function countdown() {
     if (timeLeft > 1) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
       timerEl.textContent = timeLeft + ' seconds remaining';
-
       // Decrement `timeLeft` by 1
       timeLeft--;
     } else if (timeLeft === 1) {
@@ -170,7 +162,7 @@ function countdown() {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
       timerEl.textContent = "Time's up!!!";
       // Use `clearInterval()` to stop the timer
-      clearInterval(timeInterval);
+      clearInterval(timerInterval);
     }
   }, 1000);
 }
@@ -180,16 +172,16 @@ userInitials.addEventListener("click", function (event) {
   event.preventDefault()
   var userScore = {
     user: initialInput.value,
-    score: numCorrect + timeLeft
+    score: numCorrect
   }
-  
+
   var scoreboard = JSON.parse(localStorage.getItem("codequiz")) || []
   scoreboard.push(userScore)
   localStorage.setItem("codequiz", JSON.stringify(scoreboard))
- 
- resultsContainer.style.display = "none";
- document.getElementById("html-container").style.display = "block"
- console.log(scoreboard)
+
+  resultsContainer.style.display = "none";
+  document.getElementById("html-container").style.display = "block"
+  console.log(scoreboard)
 })
 
 
