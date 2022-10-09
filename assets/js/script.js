@@ -50,18 +50,14 @@ const quiz = [
 
 
 //links to elements in results section
-//var  resultsContainer= document.getElementById("results-section");
 var userScore = document.getElementById("user-score");
 var initialInput = document.getElementById("initial-input");
 var userInitials = document.getElementById("user-initials");
-var highscoreContainer = document.getElementById("highscore-container");
 var highscoreList = document.getElementById("highscore-list");
-var backBtn = document.getElementById("btn-button");
 var clearScoresBtn = document.getElementById("btn-clear-scores");
 let resultsContainer = document.getElementById("results-section");
 var quizIndex = 0;
 var numCorrect = 0;
-
 
 //links to elements in question container
 var questionContainer = document.getElementById("question-container");
@@ -175,13 +171,13 @@ userInitials.addEventListener("click", function (event) {
     score: numCorrect
   }
 
-  var scoreboard = JSON.parse(localStorage.getItem("codequiz")) || []
-  scoreboard.push(userScore)
-  localStorage.setItem("codequiz", JSON.stringify(scoreboard))
+  var scoreBoard = JSON.parse(localStorage.getItem("codequiz")) || []
+  scoreBoard.push(userScore)
+  localStorage.setItem("codequiz", JSON.stringify(scoreBoard))
 
   resultsContainer.style.display = "none";
   document.getElementById("html-container").style.display = "block"
-  console.log(scoreboard)
+  console.log(scoreBoard)
 })
 
 
