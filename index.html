@@ -10,33 +10,38 @@
     <title>Timed Javascript Coding Quiz</title>
   </head>
   <body>
-    <div class="container-fluid">
-      <!-- header for high score and timer -->
-      <div class="row">
-          <div class="col text-left">
-              <a href="./highscore.html" id="view-high-score">View High Scores</a>
-          </div>
-      <!--displays remaining time-->
-          <div id="quiz-timer" class="col text-right">
-              Time left: <span id="time-left">0</span>
+   
+   <div class="card text-bg-primary mb-3" style="max-width: 100%; min-height: 40rem;">
+      <div class="card-header">Javascript Coding Quiz</div>
+      <div class="card-body">
+         <div class="container-fluid"> 
+            <!-- header for high score and timer -->
+            <div class="row">
+                <div class="col text-left">
+                    <a href="./highscore.html" id="view-high-score">View High Scores</a>
+                </div>
+            <!--displays remaining time-->
+                <div id="quiz-timer" class="col text-right">
+                    Time left: <span id="time-left">0</span>
+            </div>
+           
+           
+            <div id="quiz-directions" class ="m-2 justify-content-center"> 
+            <div id="quiz-over" class="col text-right" style="display: none;">Time's up!</div> 
+        <p class="card-text">Please answer the Javascript code-related questions within the time limit.
+         There is a 10 second penalty for an incorrect answer!
+        </p>
+        <button type="button" id="start-btn"class="btn btn-info ml-5 align-center"
+            >Start </button>
       </div>
-      <div id="quiz-over" class="col text-right" style="display: none;">Time's up!</div>
-    </div>
-    
-    <!--displays quiz directions and start button--> 
-    <div id="quiz-directions" class ="m-2 justify-content-center">
-       <h1> Javascript Coding Quiz</h1>
-       <p> Please answer the Javascript code-related questions within the time limit.  
-           There is a 10 second penalty for an incorrect answer!
-      </p>
-      <button type="button" id="start-btn"class="btn btn-info ml-5 align-center">Start Quiz</button>
-    </div>   
+   </div>  
+  
     <!--Displays quiz questions,  answer choice buttons and answer-->
     <div id="question-container" style="display:none;">
        <p id ="question" class="pl-5 ml-2 pt-5 justify-content-center"></p>
        <div class = "pl-5 pt-2 pb-3 m-2 justify-content-center">
             <div class= "choice-container">
-               <p class="choice-prefix"> A.</p>
+               <p class="choice-prefix"> A. </p>
                <p class="choice-text" data-number="1">Choice 1</p>
             </div>
             <div class= "choice-container">
@@ -55,9 +60,8 @@
           <p id="check-answer" style ="display: none;"></p>
        </div>
     </div>
-  
-  
-     <!--displays final results , prompts user to enter initials-->
+
+   <!--displays final results , prompts user to enter initials-->
      <div class="pl-5 ml-2 pt-5 justify-content-center font-weight-bold" id="results-section" style="display: none;">
       <div class="col-2"></div>
       <div class="col-8 text-left">
@@ -71,25 +75,14 @@
      <div class="col-2"></div>
    </div>
    <!--Displays list of highest scores-->
-   <div id="highscore-container" class="pl-5 ml-4 pt-5 justify-content-center" style="display: none;">
-      <h2> Top Scores</h2>
-        <div id= "highscore-list" class="list-group list-group-flush pt-2 pb-3 mb-2">
-        </div>
-        <p>
-          <button type="submit" class="btn btn-info mt-3 mr-3" id="back-button">Back</button>
-          <button type="submit" class="btn btn-info mt-3" id="clear-scores">Clear High Scores</button> 
-        </p>
-   </div>
- 
 
-    
    <div id="html-container" class="pl-5 ml-4 pt-5 justify-content-center" style="display: none;">
-    <a href="highscore.html">Check Previous High Scores</a>
- </div>
+      <h2>You are finished!!!</h2>
+      <a href="highscore.html">Check Previous High Scores</a>
     
-    
-    
-    </div>
+   </div>
+      
+   </div>
     <!--Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
