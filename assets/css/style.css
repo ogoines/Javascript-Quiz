@@ -1,4 +1,5 @@
 body {
+
   background-color:  #ecf5ff; 
   color: #333;
   font-family: Arial, Helvetica, sans-serif;
@@ -29,15 +30,18 @@ a:hover {
   background-color: #343a40;
 }
 */
+
 .card-header {
-  font-size: 2.0rem; 
-}
+  font-size: 2.5rem; 
+  text-align: center;
+ }
 .choice-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.0rem;
   width: 100%;
+
   font-size: 1.5rem;
   border: 0.1rem solid rgb(86, 165, 235, 0.25);
   border-radius: .3rem;
@@ -47,13 +51,13 @@ a:hover {
 
 
 .choice-prefix {
-  padding: 1.5rem 1.5rem;
+  padding:  1.5rem;
   background-color: #56a5eb;
   color: white;
 }
 
 .choice-text {
-  padding: 1.5rem;
+  padding: 1.0rem;
   width: 100%;
 }
 
@@ -83,7 +87,7 @@ start-btn {
 
 
 
-#finalScore {
+#user-score {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
@@ -96,10 +100,6 @@ p {
   font-family: 'Archivo', sans-serif;
 }
 
-#questionTitle {
-  font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
-}
 
 #answerCheck {
   font-style: italic;
