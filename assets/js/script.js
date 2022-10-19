@@ -1,7 +1,7 @@
 var timerEl = document.getElementById("quiz-timer");
 var timeLeft = document.getElementById("time-Left");
 var quizInfo = document.getElementById("quiz-directions");
-const quizLength = 5;
+const quizLength = 9;
 var timerInterval;
 
 //quiz object containing questions, answers and correct answer
@@ -23,6 +23,32 @@ const quiz = [
     answer: 4
   },
   {
+    question: "How can you get the type of arguments passed to a function?",
+    choice1: "using typeof operator",
+    choice2: "using getType function",
+    choice3: "Both of the above",
+    choice4: "None of the above",
+    answer: 1
+  },
+  {
+    question: "Inside which HTML element do we put the Javascript?",
+    choice1: "<javascript>",
+    choice2: "<script>",
+    choice3: "<scripting>",
+    choice4: "<js>",
+    answer: 2
+  },
+
+  {
+    question: "Which event occurs when the user clicks on an HTML element?",
+    choice1: "onclick",
+    choice2: "onchange",
+    choice3: "onmouseover",
+    choice4: "js",
+    answer: 1
+  },
+  
+  {
     question: "A very useful tool during debugging for printer content to the debugger is:",
     choice1: "Javascript",
     choice2: "console log",
@@ -38,6 +64,24 @@ const quiz = [
     choice4: "parenthesis",
     answer: 3
   },
+
+  {
+    question: "Which of the following function of String object splits a String object into an array of strings by separating the string into substrings?",
+    choice1: "slice()",
+    choice2: "split()",
+    choice3: "replace()",
+    choice4: "search()",
+    answer: 2
+  },
+  {
+    question: "Which of the following function of String object splits a String object into an array of strings by separating the string into substrings?",
+    choice1: "slice()",
+    choice2: "split()",
+    choice3: "replace()",
+    choice4: "search()",
+    answer: 2
+  },
+  
   {
     question: "The condition in an if/else statement is enclosed with ______.",
     choice1: "parenthesis",
@@ -52,7 +96,7 @@ const quiz = [
 //links to elements in results section
 var userScore = document.getElementById("user-score");
 var initialInput = document.getElementById("initial-input");
-var userInitials = document.getElementById("user-initials");
+var userInitials = document.getElementById("user-initials-btn");
 var highscoreList = document.getElementById("highscore-list");
 var clearScoresBtn = document.getElementById("btn-clear-scores");
 let resultsContainer = document.getElementById("results-section");
@@ -60,7 +104,7 @@ var quizIndex = 0;
 var numCorrect = 0;
 
 //links to elements in question container
-var questionContainer = document.getElementById("question-container");
+var questionContainer = document.getElementById("quiz-questions");
 const question = document.getElementById("question");
 //html collection converted to an array with datasets with custom properties
 const choices = Array.from(document.getElementsByClassName("choice-text"));
@@ -85,7 +129,7 @@ startQuiz = () => {
 document.getElementById("start-btn").addEventListener("click", startQuiz)
 var timeLeft = 50;
 
-//gets Quiz
+//gets Quiz questions
 getQuestions = () => {
 
   if (questionCounter < quizLength - 1) {
@@ -105,7 +149,7 @@ getQuestions = () => {
     displayResults()
   }
 }
-
+//checks  selected answers 
 choices.forEach(choice => {
   choice.addEventListener("click", e => {
     const penalty = 10;
@@ -120,11 +164,11 @@ choices.forEach(choice => {
     if (selectedAnswer == currentQuestion.answer) {
       numCorrect++;
       checkAnswer.textContent = 'Correct!';
-      userScore.textContent = numCorrect;
     } else {
       checkAnswer.textContent = 'Incorrect';
       timeLeft = timeLeft - penalty;
     }
+    userScore.textContent = numCorrect + timeLeft;
     getQuestions();
 
   });
@@ -135,7 +179,6 @@ const displayResults = () => {
   questionContainer.style.display = "none";
   resultsContainer.style.display = "inline-block";
   clearInterval(timeInterval);
-  userScore.textContent = numCorrect;
   console.log("Display numCorrect")
   console.log(numCorrect);
 }
@@ -168,7 +211,7 @@ userInitials.addEventListener("click", function (event) {
   event.preventDefault()
   var userScore = {
     user: initialInput.value,
-    score: numCorrect
+    score: numCorrect 
   }
 
   var scoreBoard = JSON.parse(localStorage.getItem("codequiz")) || []
