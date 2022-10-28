@@ -19,7 +19,7 @@ remaining time to the number of  correct answers.   The application is written w
   ## Usage
  The Javascript Quiz is deployed on Github and can be accessed by visiting:
  
- `https://ogoines.github.io/Javascript-Quiz/`
+ https://ogoines.github.io/javascript-quiz/
  
  ## License
  GPL 3.0
@@ -36,5 +36,5 @@ remaining time to the number of  correct answers.   The application is written w
 
  Orsha Goines at orshamarie@email.com or check out my work on GitHub at 
 
- [GitHub](https://github.com/[ogoines]
+ [GitHub](https://github.com/[ogoines])
  
