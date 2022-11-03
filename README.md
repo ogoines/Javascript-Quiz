@@ -14,7 +14,7 @@ This application is a timed Javascript coding quiz that allow users to test thei
 format.  A time penalty is applied for each incorrect answer then the final score is calculated by adding the 
 remaining time to the number of  correct answers.   The application is written with Javascript, HTMl and styled wit CSS.
  
- [![Take the Quiz](images/screenshot.png)](https://ogoines.github.io/Javascript-Quiz/)
+ [![Take the Quiz](images/screenshot.png)](https://ogoines.github.io/javascript-quiz/)
  
   ## Usage
  The Javascript Quiz is deployed on Github and can be accessed by visiting:
